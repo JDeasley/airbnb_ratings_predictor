@@ -1,0 +1,50 @@
+Q2
+
+(i)
+Give two examples of situations when logistic regression would give inaccurate predictions. Explain your answer.
+[5 marks]
+-----
+One situation that may cause inaccuracy in a logistic regression model is if we have imbalanced training data. If one class is far more common in our training data, then our model may lean toward predicting that more common classification purely because it is common, which is not useful to us when we are trying to predict a classification based on real data. In this case, a logistic regression model may not be any better than a baseline model which always predicts the most common classification.
+
+Another situation that may cause inaccuracy is if there isn't a linear relationship between our input features and the target we wish to predict, since logistic regression looks for linear relationships similarly to linear regression. However, this issue could be worked around using feature engineering to find certain nonlinear relationships.
+
+
+(ii)
+Discuss some advantages and disadvantages of a kNN classifier vs an MLP neural net classifier. Explain your reasoning.
+[5 marks]
+-----
+A kNN classifier makes direct use of training data to make predictions by using the outputs of the k closest training points to the input.
+
+A Multi-Layer Perceptron is a neural net with at least 3 layers: the input layer, a number of hidden layers, and the output layer.
+Each node in the hidden layer takes the weighted sum of its inputs and then applies an activation function to the result, before passing this to the next layer.
+Nodes in the output layer can then apply an output function (to the weighted sum of its inputs, the outputs from the previous layer) before returning the resulting outputs.
+
+One advantage of a kNN classifier over an MLP neural net classifier is that typically a kNN classifier doesn't need as much training as an MLP does. Since a kNN classifier makes direct use of it's training data, it doesn't need to train weights or biases like an MLP, it simply finds the samples in the training data which are closest to the features of the input we want a prediction for.
+
+In the same vein as this, a kNN classifier can also work quite well with a small training dataset, since it doesn't need a large amount of data to train on. Conversely, if we do have a large dataset, an MLP classifier might be better at learning complex relationships between input features and outputs.
+
+Another practical advantage to kNN over MLP is interpretability. It is very clear what a kNN classifier is doing, whereas an MLP classifier may get highly complex and difficult to understand and interpret as a result.
+
+
+
+
+(iii)
+In k-fold cross-validation a dataset is resampled multiple times.
+What is the idea behind this resampling i.e. why does resampling allow us to evaluate the generalisation performance of a machine learning model.
+Why are k = 5 or k = 10 often suggested as good choices?
+[10 marks]
+-----
+Resampling gives us multiple estimates of cost function, allowing us to estimate the average and spread of values. The aim is to work around noise in the data by changing which parts of the data we use for training and testing in k models, and then taking the average of the prediction accuracy of all the models, effectively smoothing out the noise.
+
+The larger the value of k we use the more representative our cross-validation will be. However, since we are fitting a new model k times, we don't want k to be so large that it is computationally unreasonable. The values k = 5 and k = 10 are often suggested as good choices because they are considered to strike a reasonably good balance in this trade-off.
+
+
+
+(iv) Discuss how lagged output values can be used to construct features for time series data. Illustrate with a small example.
+[5 marks]
+-----
+Sometimes with time series data it can be useful to take the predictions of our model as feedback to make predictions even further ahead. We need to be careful doing this since our predictions are, as always, subject to error, which will build up the more we rely on this feedback. The further ahead we look with a feedback model like this, the less accurate we would expect our predictions to become.
+
+As an example of this, suppose it is a Tuesday and we want to predict the weather for the coming Friday. We only have the actual weather data up to Tuesday, so we may start by predicting the weather for Wednesday. We can then propogate this prediction forward to use as an extra feature in order to predict the weather for Thursday, and then similarly propogate our predictions for both Wednesday and Thursday forward to use as features in our prediction for Friday. However, it might be unreasonable to use this method to make a prediction about a Tuesday 2 months from now, since all of the data in between will be predicted, not real data, and thus subject to error. We wouldn't expect such a prediction to be very accurate.
+
+
